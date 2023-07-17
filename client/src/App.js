@@ -1,10 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+
+
+
+//components
+import Messenger from "./components/Messenger";
 
 function App() {
   return (
-    <div className="App">
-      Hello
+    <div >
+      <Messenger />
     </div>
   );
 }
