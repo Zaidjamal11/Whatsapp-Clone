@@ -1,4 +1,4 @@
-import React from "react";
+import { useContext } from "react";
 
 import { Dialog, Box, Typography, List, ListItem, styled } from "@mui/material";
 
@@ -6,7 +6,8 @@ import { GoogleLogin } from "@react-oauth/google";
 
 import { qrCodeImage } from "../../constants/data";
 
-import jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode";
+import { AccountContext } from "../../context/AccountProvider";
 
 const Component = styled(Box)`
   display: flex;
@@ -53,21 +54,24 @@ const dialogStyle = {
 const LoginDialog = () => {
 
 
-  const onLoginSuccess = (res) => {
+  const { setAccount } = useContext(AccountContext);
 
+
+
+
+
+
+  const onLoginSuccess = (res) => {
     const decoded = jwt_decode(res.credential);
-    
+    setAccount(decoded);
   };
 
-
-
   const onLoginError = (res) => {
-    
-    console.log("Login Failed", res)
+    console.log("Login Failed", res);
   };
 
   return (
-    <Dialog open={true} PaperProps={{ sx: dialogStyle }}>
+    <Dialog open={true} PaperProps={{ sx: dialogStyle }} hideBackdrop={true}>
       <Component>
         <Container>
           <Title>To use WhatsApp on your computer:</Title>
@@ -75,23 +79,24 @@ const LoginDialog = () => {
             <ListItem> 1. Open WhatsApp on your phone </ListItem>
             <ListItem>
               {" "}
-              2. Tap Menu : or Settings and select Linked Devices{" "}
+              2. Tap Menu : or Settings and select Linked Devices
             </ListItem>
             <ListItem>
-              {" "}
-              3. Point your phone to this screen to capture the code{" "}
+              3. Point your phone to this screen to capture the code
             </ListItem>
           </StyledList>
         </Container>
 
-        <Box style={{ position: 'relative'}}>
+        <Box style={{ position: "relative" }}>
           <QrCode src={qrCodeImage} alt="qr-code" />
-          <Box style={{ position: 'absolute', top: '50%', transform: 'translateX(45%)'}}>
-              <GoogleLogin
-                 onSuccess={onLoginSuccess}
-                 onError={onLoginError}
-
-              />
+          <Box
+            style={{
+              position: "absolute",
+              top: "50%",
+              transform: "translateX(45%)",
+            }}
+          >
+            <GoogleLogin onSuccess={onLoginSuccess} onError={onLoginError} />
           </Box>
         </Box>
       </Component>
