@@ -3,7 +3,10 @@ import { Box, styled } from '@mui/material';
 import { useContext } from 'react';
 import { AccountContext } from '../../../context/AccountProvider';
 
-import { Chat as MessagingIcon , MoreVert, Autorenew} from '@mui/icons-material';
+import { Chat as MessagingIcon ,  Autorenew} from '@mui/icons-material';
+
+//components
+import HeaderMenu from './HeaderMenu';
 
 
 
@@ -48,7 +51,7 @@ const Header = () => {
         <Wrapper>
             <Autorenew />
             <MessagingIcon />
-            <MoreVert />
+            <HeaderMenu />
 
         </Wrapper>
     </Component>
