@@ -1,5 +1,7 @@
-import { Box, styled } from '@mui/material';
+import { useState } from 'react';
 
+
+import { Box, styled } from '@mui/material';
 import { useContext } from 'react';
 import { AccountContext } from '../../../context/AccountProvider';
 
@@ -7,6 +9,7 @@ import { Chat as MessagingIcon ,  Autorenew} from '@mui/icons-material';
 
 //components
 import HeaderMenu from './HeaderMenu';
+import InfoDrawer from '../../drawer/InfoDrawer';
 
 
 
@@ -41,20 +44,27 @@ const Image = styled('img')({
 
 const Header = () => {
 
+    const [openDrawer,  setOpenDrawer] = useState(false);
+
     const { account } = useContext(AccountContext);
+
+    const toggleDrawer = () => {
+        setOpenDrawer(true);
+    }
 
 
   return (
     <>
     <Component>
-        <Image src={account.picture}  alt="dp" />
+        <Image src={account.picture}  alt="dp" onClick={() => toggleDrawer()}/>
         <Wrapper>
             <Autorenew />
             <MessagingIcon />
-            <HeaderMenu />
+            <HeaderMenu setOpenDrawer={setOpenDrawer} />
 
         </Wrapper>
     </Component>
+    <InfoDrawer open={openDrawer} setOpen ={setOpenDrawer}/>
     
     </>
   )
