@@ -3,12 +3,30 @@ import { Box, styled } from '@mui/material';
 import { useContext } from 'react';
 import { AccountContext } from '../../../context/AccountProvider';
 
+import { Chat as MessagingIcon , MoreVert, Autorenew} from '@mui/icons-material';
+
 
 
 const Component = styled(Box)`
-  height: 44px;
-  background: #ededed;
-  padding: 8px 16px
+    height: 44px;
+    background: #ededed;
+    display: flex;
+    padding: 8px 16px;
+    align-items: center;
+`;
+
+const Wrapper = styled(Box) `
+    margin-left: auto;
+    & > * {
+        margin-left: 2px;
+        padding: 8px;
+        color: #000;
+    };
+    & :first-child {
+        font-size: 22px;
+        margin-right: 8px;
+        margin-top: 3px;
+    }
 `;
 
 const Image = styled('img')({
@@ -27,6 +45,12 @@ const Header = () => {
     <>
     <Component>
         <Image src={account.picture}  alt="dp" />
+        <Wrapper>
+            <Autorenew />
+            <MessagingIcon />
+            <MoreVert />
+
+        </Wrapper>
     </Component>
     
     </>
