@@ -8,6 +8,7 @@ import { qrCodeImage } from "../../constants/data";
 
 import jwt_decode from "jwt-decode";
 import { AccountContext } from "../../context/AccountProvider";
+import { addUser } from "../../service/api";
 
 const Component = styled(Box)`
   display: flex;
@@ -61,9 +62,10 @@ const LoginDialog = () => {
 
 
 
-  const onLoginSuccess = (res) => {
+  const onLoginSuccess = async (res) => {
     const decoded = jwt_decode(res.credential);
     setAccount(decoded);
+    await addUser(decoded);
   };
 
   const onLoginError = (res) => {
@@ -78,7 +80,6 @@ const LoginDialog = () => {
           <StyledList>
             <ListItem> 1. Open WhatsApp on your phone </ListItem>
             <ListItem>
-              {" "}
               2. Tap Menu : or Settings and select Linked Devices
             </ListItem>
             <ListItem>
