@@ -5,11 +5,13 @@ import ChatHeader from './ChatHeader';
 import Messages from './Messages';
 
 
+
 const ChatBox = () => {
   return (
-    <Box>
+    <Box style={{ height: '75%'}}>
         <ChatHeader />
         <Messages />
+        
     </Box>
   )
 }
