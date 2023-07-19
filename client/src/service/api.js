@@ -2,13 +2,12 @@ import axios from 'axios';
 
 const url = 'http://localhost:8000';
 
-export const addUser = async ( data ) => {
+export const addUser = async (data) => {
     try {
-        await axios.post(`${url}/add`, data);
-
-        
-    } catch(error) {
-        console.log("Error while calling addUser api ", error.message)
+        let response = await axios.post(`${url}/add`, data);
+        return response.data;
+    } catch (error) {
+        console.log('Error while calling addUser api ', error);
     }
 }
 
@@ -16,7 +15,7 @@ export const addUser = async ( data ) => {
 export const getUsers = async() => {
     try {
         let response = await axios.get(`${url}/users`);
-        console.log(response);
+    
         return response.data;
 
     } catch (error) {

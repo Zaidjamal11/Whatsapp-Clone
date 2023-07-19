@@ -9,7 +9,7 @@ export const addUser = async (request, response) => {
             return;
         }
 
-        const newUser = new User(request.body);
+        const newUser = new user(request.body);
         await newUser.save();
         response.status(200).json(newUser);
 
