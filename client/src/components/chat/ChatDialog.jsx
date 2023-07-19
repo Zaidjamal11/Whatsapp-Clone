@@ -6,6 +6,7 @@ import React from 'react';
 //components
 import Menu from './menu/Menu';
 import EmptyChat from './chat/EmptyChat';
+import ChatBox from './chat/ChatBox';
 
 
 const Component = styled(Box)`
@@ -51,7 +52,8 @@ const ChatDialog = () => {
         </LeftComponent>
 
         <RightCompoent>
-          <EmptyChat/>
+          {/* <EmptyChat/> */}
+          <ChatBox />
 
         </RightCompoent>
       </Component>
