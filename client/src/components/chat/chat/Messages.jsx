@@ -1,5 +1,9 @@
-import React from 'react';
+import  { useContext , useState } from 'react';
+
+import { AccountContext } from '../../../context/AccountProvider';
 import { Box, styled } from '@mui/material';
+
+import { newMessage } from '../../../service/api';
 
 //components
 import Footer from './Footer';
@@ -17,13 +21,36 @@ const Component = styled(Box)`
 `
 
 
-const Messages = () => {
+const Messages = ({ person, conversation}) => {
+
+  const { account } = useContext(AccountContext);
+  const [value, setValue] = useState('');
+
+
+
+  const sendText = async(e) => {
+    const code = e.keyCode || e.which;
+    if(code === 13){
+      let message = {
+        senderId : account.sub,
+        receiverId: person.sub,
+        conversationId: conversation._id,
+        type: 'text',
+        text: value
+
+      }
+      await newMessage(message);
+      setValue('');
+    }
+
+  }
+
   return (
     <Wrapper>
       <Component>
 
       </Component>
-      <Footer />
+      <Footer sendText={sendText} setValue={setValue} />
     </Wrapper>
   )
 }

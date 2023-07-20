@@ -28,15 +28,13 @@ const Conversations = ({ text }) => {
 
 
     useEffect(() => {
-        const fetchData = async() => {
-            let response = await getUsers();
-            const filteredData = response.filter(user => user.name.toLowerCase().includes(text.toLowerCase()));
-            setUsers(filteredData);
-
+        const fetchData = async () => {
+            let data = await getUsers();
+            let fiteredData = data.filter(user => user.name.toLowerCase().includes(text.toLowerCase()));
+            setUsers(fiteredData);
         }
         fetchData();
-
-    },[text]);
+    }, [text]);
 
 
     return (
