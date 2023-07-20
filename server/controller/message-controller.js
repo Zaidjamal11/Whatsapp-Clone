@@ -4,6 +4,7 @@ import Conversation from '../model/Conversation.js';
 
 
 
+
 export const newMessage = async (request, response) => {
     const newMessage = new Message(request.body);
     try {
@@ -12,6 +13,18 @@ export const newMessage = async (request, response) => {
         response.status(200).json("Message has been sent successfully");
     } catch (error) {
         response.status(500).json(error);
+    }
+
+}
+
+
+export const getMessages = async(request, response) => {
+    try {
+        const message = await Message.find({ conversationId: request.params.id });
+    return response.status(200).json(message);
+
+    } catch(error) {
+        return response.status(500).json(error.message);
     }
 
 }

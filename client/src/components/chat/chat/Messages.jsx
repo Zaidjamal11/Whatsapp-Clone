@@ -1,9 +1,9 @@
-import  { useContext , useState } from 'react';
+import  { useContext , useState , useEffect} from 'react';
 
 import { AccountContext } from '../../../context/AccountProvider';
 import { Box, styled } from '@mui/material';
 
-import { newMessage } from '../../../service/api';
+import { getMessages, newMessage } from '../../../service/api';
 
 //components
 import Footer from './Footer';
@@ -25,6 +25,16 @@ const Messages = ({ person, conversation}) => {
 
   const { account } = useContext(AccountContext);
   const [value, setValue] = useState('');
+
+
+
+  useEffect(() => {
+    const getMessageDetails = async () => {
+      let data = await getMessages(conversation._id);
+      
+    }
+    conversation._id && getMessageDetails();
+  },[person._id, conversation._id])
 
 
 
@@ -50,7 +60,7 @@ const Messages = ({ person, conversation}) => {
       <Component>
 
       </Component>
-      <Footer sendText={sendText} setValue={setValue} />
+      <Footer sendText={sendText} setValue={setValue} value={value} />
     </Wrapper>
   )
 }

@@ -35,7 +35,7 @@ const ClipIcon = styled(AttachFile)`
 `
 
 
-const Footer = ({ sendText , setValue }) => {
+const Footer = ({ sendText , setValue , value }) => {
 
   
   return (
@@ -47,7 +47,7 @@ const Footer = ({ sendText , setValue }) => {
             placeholder='Type a message'
             onChange={(e) => setValue(e.target.value)}
             onKeyPress={(e) => sendText(e)}
-            
+            value={value}
             />
         </Search>
         <Mic />
