@@ -3,7 +3,7 @@ import { Box, InputBase, styled } from '@mui/material';
 import { EmojiEmotionsOutlined, AttachFile, Mic } from '@mui/icons-material';
 
 const Container = styled(Box)`
-    height: 55px;
+    height: 52px;
     background: #ededed;
     width: 100%;
     display: flex;

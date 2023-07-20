@@ -2,7 +2,7 @@
 import {Box, Typography, styled } from '@mui/material';
 import { Search, MoreVert } from '@mui/icons-material';
 
-import { defaultProfilePicture } from '../../../constants/data';
+
 
 const Header = styled(Box)`
   height:: 44px;
@@ -41,13 +41,13 @@ const RightContainer = styled(Box)`
 `
 
 
-const ChatHeader = () => {
+const ChatHeader = ({ person }) => {
   return (
     <Header>
-        <Image src={defaultProfilePicture} alt="dp" />
+        <Image src={person.picture} alt="dp" />
         <Box>
-            <Name>Name</Name>
-            <Status>online status</Status>
+            <Name>{person.name}</Name>
+            <Status>offline</Status>
         </Box>
         <RightContainer>
             <Search />
