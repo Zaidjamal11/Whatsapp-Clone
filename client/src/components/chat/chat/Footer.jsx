@@ -36,22 +36,22 @@ const ClipIcon = styled(AttachFile)`
 `;
 
 
-const Footer = ({ sendText , setValue , value, file, setFile }) => {
+const Footer = ({ sendText , setValue , value, file, setFile, setImage  }) => {
 
 
   useEffect(() => {
-     const getImage = async () => {
-      if(file) {
-        const data = new FormData();
-        data.append("name", file.name);
-        data.append("file", file);
+    const getImage = async () => {
+        if (file) {
+            const data = new FormData();
+            data.append("name", file.name);
+            data.append("file", file);
 
-        await uploadFile(data);
-      }
-     }
-     getImage();
-
-  },[file])
+            const response = await uploadFile(data);
+            setImage(response.data);
+        }
+    }
+    getImage();
+}, [file])
 
 
 

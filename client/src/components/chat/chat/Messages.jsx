@@ -3,7 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import { AccountContext } from "../../../context/AccountProvider";
 import { Box, styled } from "@mui/material";
 
-import { getMessages, newMessage } from "../../../service/api";
+import { getMessages, newMessages } from "../../../service/api";
 
 //components
 import Footer from "./Footer";
@@ -32,6 +32,7 @@ const Messages = ({ person, conversation }) => {
 
   const [newMessageFlag , setNewMessageFlag] = useState(false);
   const [file, setFile] = useState();
+  const [image, setImage] = useState('');
 
   const { account } = useContext(AccountContext);
 
@@ -45,17 +46,31 @@ const Messages = ({ person, conversation }) => {
 
   const sendText = async (e) => {
     const code = e.keyCode || e.which;
-    if (code === 13) {
-      let message = {
-        senderId: account.sub,
-        receiverId: person.sub,
-        conversationId: conversation._id,
-        type: "text",
-        text: value,
-      };
-      await newMessage(message);
-      setValue("");
-      setNewMessageFlag(prev => !prev);
+    if(code === 13) { 
+      let message = {};
+      if (!file) {
+          message = {
+              senderId: account.sub,
+              receiverId: person.sub,
+              conversationId: conversation._id,
+              type: 'text',
+              text: value
+          };
+      } else {
+          message = {
+              senderId: account.sub,
+              conversationId: conversation._id,
+              receiverId: person.sub,
+              type: 'file',
+              text: image
+          };
+      }
+      await newMessages(message);
+
+            setValue('');
+            setFile();
+            setImage('');
+            setNewMessageFlag(prev => !prev);
       
     }
   };
@@ -75,6 +90,7 @@ const Messages = ({ person, conversation }) => {
       value={value} 
       file={file}
       setFile={setFile}
+      setImage={setImage}
       />
     </Wrapper>
   );
