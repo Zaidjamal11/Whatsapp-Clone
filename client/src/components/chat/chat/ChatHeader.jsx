@@ -47,6 +47,7 @@ const RightContainer = styled(Box)`
 const ChatHeader = ({ person }) => {
 
   const { activeUsers } = useContext(AccountContext);
+  
 
 
   return (

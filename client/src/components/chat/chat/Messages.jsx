@@ -33,10 +33,20 @@ const Messages = ({ person, conversation }) => {
   const [newMessageFlag , setNewMessageFlag] = useState(false);
   const [file, setFile] = useState();
   const [image, setImage] = useState('');
+  const [incomingMessage, setIncomingMessage] = useState(null);
 
   const scrollRef = useRef();
 
-  const { account } = useContext(AccountContext);
+  const { account, socket  } = useContext(AccountContext);
+
+  useEffect(() => {
+    socket.current.on('getMessage', data => {
+        setIncomingMessage({
+            ...data,
+            createdAt: Date.now()
+        })
+    })
+}, []);
 
   useEffect(() => {
     const getMessageDetails = async () => {
@@ -52,6 +62,11 @@ const Messages = ({ person, conversation }) => {
 }, [messages]);
 
 
+useEffect(() => {
+  incomingMessage && conversation?.members?.includes(incomingMessage.senderId) && 
+      setMessages((prev) => [...prev, incomingMessage]);
+  
+}, [incomingMessage, conversation]);
 
 
 
@@ -77,6 +92,11 @@ const Messages = ({ person, conversation }) => {
               text: image
           };
       }
+
+      socket.current.emit('sendMessage', message);
+
+
+
       await newMessages(message);
 
             setValue('');
